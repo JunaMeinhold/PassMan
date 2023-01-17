@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	  <SignAssembly>True</SignAssembly>
+	  <AssemblyOriginatorKeyFile>keypair.snk</AssemblyOriginatorKeyFile>
+	<UserSecretsId>a30d6b47-44e8-4da0-b19e-203386c9da86</UserSecretsId>
+	  <LangVersion>10.0</LangVersion>
+  </PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Google.Apis.Drive.v3" Version="1.57.0.2859" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="7.0.0" />
+	</ItemGroup>
+</Project>
