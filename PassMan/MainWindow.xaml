@@ -17,7 +17,7 @@
         <sc:PixelsToGridLengthConverter x:Key="PixelsToGridLength" />
     </Window.Resources>
     <Window.DataContext>
-        <vm:ViewModel />
+        <vm:MainViewModel />
     </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
@@ -41,7 +41,7 @@
             -->
         </ui:TitleBar>
 
-        <local:PasswordView Visibility="{Binding PasswordDialogVisibility}" Grid.Row="1" />
+        <local:StartupView Visibility="{Binding PasswordDialogVisibility}" Grid.Row="1" />
         <Grid Visibility="{Binding MenuVisibility}" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -53,6 +53,8 @@
                     <ui:NavigationItem Content="Apps" Icon="Apps24" PageType="{x:Type local:AppView}" />
                     <ui:NavigationItem Content="Notes" Icon="Note24" PageType="{x:Type local:NoteView}" />
                     <ui:NavigationItem Content="Files" Icon="Folder24" PageType="{x:Type local:FileView}" />
+                    <ui:NavigationItem Content="Generator" Icon="ClipboardMore24" PageType="{x:Type local:GeneratorView}" />
+                    <ui:NavigationItem Content="Settings" Icon="Settings24" PageType="{x:Type local:SettingsView}" />
                 </ui:NavigationStore.Items>
             </ui:NavigationStore>
             <Grid Grid.Column="1">

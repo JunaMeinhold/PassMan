@@ -6,7 +6,7 @@
              xmlns:vm="clr-namespace:PassMan.ViewModel"
              xmlns:core="clr-namespace:PassMan.Core"
              xmlns:conv="clr-namespace:PassMan.Core.Convertes" xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-      d:DataContext="{d:DesignInstance Type=vm:ViewModel}"
+             d:DataContext="{d:DesignInstance Type=vm:MainViewModel}"
              Style="{StaticResource UiPage}"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -25,9 +25,9 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <TextBox Text="{Binding Filter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <Button Grid.Column="1" Content="+" Width="32" Height="32" Command="{Binding AddFileCommand}" Margin="8,0,0,0" />
+            <Button Grid.Column="1" Content="+" Width="32" Height="32" Command="{Binding Files.AddFileCommand}" Margin="8,0,0,0" />
         </Grid>
-        <ListView Grid.Row="1" ItemsSource="{Binding Vault.Files}" SelectedItem="{Binding CurrentFile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+        <ListView Grid.Row="1" ItemsSource="{Binding Vault.Files}" SelectedItem="{Binding Files.CurrentFile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel />
@@ -41,7 +41,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ScrollViewer Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Visibility="{Binding CurrentFileVisibility}">
+        <ScrollViewer Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Visibility="{Binding Files.CurrentFileVisibility}">
             <Grid Margin="16">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -55,10 +55,10 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0" Content="Name:" VerticalContentAlignment="Center" Margin="8" />
-                        <TextBox Grid.Column="1" Text="{Binding CurrentFile.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="8" />
+                        <TextBox Grid.Column="1" Text="{Binding Files.CurrentFile.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="8" />
                         <StackPanel Orientation="Horizontal" Grid.Column="2" HorizontalAlignment="Right">
-                            <Button Content="Export" Command="{Binding ExportFileCommand}" Margin="8,0,8,0" />
-                            <Button Content="&#xE74D;" FontFamily="Segoe Fluent Icons" Command="{Binding RemoveFileCommand}" />
+                            <Button Content="Export" Command="{Binding Files.ExportFileCommand}" Margin="8,0,8,0" />
+                            <Button Content="&#xE74D;" FontFamily="Segoe Fluent Icons" Command="{Binding Files.RemoveFileCommand}" />
                         </StackPanel>
                     </Grid>
                 </ui:Card>

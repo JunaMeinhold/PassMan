@@ -1,14 +1,33 @@
 ﻿namespace PassMan.Model
 {
-    using PassMan.Core;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
+    using Newtonsoft.Json;
+    using System.IO;
 
     public class Config
     {
-        public ProviderType ProviderType { get; set; } = ProviderType.Local;
+        private const string ConfigName = "config.json";
+
+        static Config()
+        {
+            if (!File.Exists(ConfigName))
+            {
+                Default = new();
+            }
+            else
+            {
+                var config = JsonConvert.DeserializeObject<Config>(File.ReadAllText(ConfigName));
+                config ??= new();
+                Default = config;
+            }
+        }
+
+        public static Config Default { get; }
+
+        public DataSourceMode DataSource { get; set; } = DataSourceMode.Appdata;
+
+        public void Save()
+        {
+            File.WriteAllText(ConfigName, JsonConvert.SerializeObject(this));
+        }
     }
 }

@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vm="clr-namespace:PassMan.ViewModel"
              xmlns:core="clr-namespace:PassMan.Core" xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-      d:DataContext="{d:DesignInstance Type=vm:ViewModel}"
+             d:DataContext="{d:DesignInstance Type=vm:MainViewModel}"
              Style="{StaticResource UiPage}"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -24,9 +24,9 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <TextBox Text="{Binding Filter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <Button Grid.Column="1" Content="+" Width="32" Height="32" Command="{Binding AddNoteCommand}" Margin="8,0,0,0" />
+            <Button Grid.Column="1" Content="+" Width="32" Height="32" Command="{Binding Notes.AddNoteCommand}" Margin="8,0,0,0" />
         </Grid>
-        <ListView Width="200" Grid.Row="1" ItemsSource="{Binding Vault.Notes}" SelectedItem="{Binding CurrentNote, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+        <ListView Width="200" Grid.Row="1" ItemsSource="{Binding Vault.Notes}" SelectedItem="{Binding Notes.CurrentNote, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel />
@@ -40,7 +40,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ScrollViewer Grid.RowSpan="2" Grid.Row="0" Grid.Column="1" Visibility="{Binding CurrentNoteVisibility}">
+        <ScrollViewer Grid.RowSpan="2" Grid.Row="0" Grid.Column="1" Visibility="{Binding Notes.CurrentNoteVisibility}">
             <Grid Margin="16">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -54,11 +54,11 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0" Content="Name:" Margin="8" VerticalAlignment="Center" />
-                        <TextBox Grid.Column="1" Text="{Binding CurrentNote.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="8" />
-                        <Button Grid.Column="2" Content="&#xE74D;" Command="{Binding RemoveNoteCommand}" FontFamily="Segoe Fluent Icons" HorizontalAlignment="Right" Margin="8,0,0,0" />
+                        <TextBox Grid.Column="1" Text="{Binding Notes.CurrentNote.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="8" />
+                        <Button Grid.Column="2" Content="&#xE74D;" Command="{Binding Notes.RemoveNoteCommand}" FontFamily="Segoe Fluent Icons" HorizontalAlignment="Right" Margin="8,0,0,0" />
                     </Grid>
                 </ui:Card>
-                <RichTextBox Grid.Row="1" Margin="16" core:RichTextBoxHelper.Attach="True" core:RichTextBoxHelper.Text="{Binding CurrentNote.Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <RichTextBox Grid.Row="1" Margin="16" core:RichTextBoxHelper.Attach="True" core:RichTextBoxHelper.Text="{Binding Notes.CurrentNote.Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </Grid>
         </ScrollViewer>
     </Grid>

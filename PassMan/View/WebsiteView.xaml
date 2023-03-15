@@ -7,7 +7,7 @@
              xmlns:vm="clr-namespace:PassMan.ViewModel"
              xmlns:core="clr-namespace:PassMan.Core"
              xmlns:conv="clr-namespace:PassMan.Core.Convertes"
-             d:DataContext="{d:DesignInstance Type=vm:ViewModel}"
+             d:DataContext="{d:DesignInstance Type=vm:MainViewModel}"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800" Style="{StaticResource UiPage}" Name="usercontrol">
     <Page.Resources>
@@ -30,9 +30,9 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <TextBox Grid.Column="0" MaxWidth="200" Text="{Binding Filter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <Button Grid.Column="1" Content="+" Command="{Binding AddWebsiteCommand, UpdateSourceTrigger=PropertyChanged}" Width="32" Height="32" Margin="8,0,0,0" />
+            <Button Grid.Column="1" Content="+" Command="{Binding Websites.AddWebsiteCommand, UpdateSourceTrigger=PropertyChanged}" Width="32" Height="32" Margin="8,0,0,0" />
         </Grid>
-        <ListView Grid.Row="1" MaxHeight="400" ItemsSource="{Binding Vault.Websites}" SelectedValue="{Binding CurrentWebsite, Mode=TwoWay}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Width="200" VerticalAlignment="Top">
+        <ListView Grid.Row="1" MaxHeight="400" ItemsSource="{Binding Vault.Websites}" SelectedValue="{Binding Websites.CurrentWebsite, Mode=TwoWay}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Width="200" VerticalAlignment="Top">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel />
@@ -56,7 +56,7 @@
             </ItemsControl.ItemTemplate>
         </ListView>
 
-        <ScrollViewer Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Visibility="{Binding CurrentWebsiteVisibility}">
+        <ScrollViewer Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Visibility="{Binding Websites.CurrentWebsiteVisibility}">
             <Grid Margin="16">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -78,16 +78,16 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <Label  Grid.Column="0" Content="Website Name:" Margin="8" VerticalContentAlignment="Center" />
-                        <TextBox Grid.Column="1" Margin="8" Text="{Binding CurrentWebsite.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" />
+                        <TextBox Grid.Column="1" Margin="8" Text="{Binding Websites.CurrentWebsite.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" />
                         <Label  Grid.Column="2" Content="Website Url:" Margin="8" VerticalContentAlignment="Center" />
-                        <TextBox Grid.Column="3" Margin="8" Text="{Binding CurrentWebsite.Url, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" />
+                        <TextBox Grid.Column="3" Margin="8" Text="{Binding Websites.CurrentWebsite.Url, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" />
                         <StackPanel Grid.Column="4" Orientation="Horizontal" HorizontalAlignment="Right">
-                            <Button Margin="8,0,8,0" Content="&#xe710;" FontFamily="Segoe Fluent Icons" Command="{Binding AddAccountToWebsiteCommand}" HorizontalAlignment="Right" />
-                            <Button Content="&#xE74D;" Command="{Binding RemoveWebsiteCommand, UpdateSourceTrigger=PropertyChanged}" Width="Auto" Height="Auto" FontFamily="Segoe Fluent Icons" HorizontalAlignment="Right" />
+                            <Button Margin="8,0,8,0" Content="&#xe710;" FontFamily="Segoe Fluent Icons" Command="{Binding Websites.AddAccountToWebsiteCommand}" HorizontalAlignment="Right" />
+                            <Button Content="&#xE74D;" Command="{Binding Websites.RemoveWebsiteCommand, UpdateSourceTrigger=PropertyChanged}" Width="Auto" Height="Auto" FontFamily="Segoe Fluent Icons" HorizontalAlignment="Right" />
                         </StackPanel>
                     </Grid>
                 </wpfui:Card>
-                <ItemsControl Grid.ColumnSpan="2" Grid.Row="3" ItemsSource="{Binding CurrentWebsite.Accounts}" ScrollViewer.CanContentScroll="False" ScrollViewer.IsDeferredScrollingEnabled="True">
+                <ItemsControl Grid.ColumnSpan="2" Grid.Row="3" ItemsSource="{Binding Websites.CurrentWebsite.Accounts}" ScrollViewer.CanContentScroll="False" ScrollViewer.IsDeferredScrollingEnabled="True">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <wpfui:Card Margin="16">
@@ -102,7 +102,7 @@
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
-                                    <Button Grid.Column="1" Command="{Binding ElementName=usercontrol, Path=DataContext.RemoveAccountFromWebsiteCommand}" CommandParameter="{Binding}" Width="Auto" Height="Auto" HorizontalAlignment="Right" FontFamily="Segoe Fluent Icons" Content="&#xE74D;" />
+                                    <Button Grid.Column="1" Command="{Binding ElementName=usercontrol, Path=DataContext.Websites.RemoveAccountFromWebsiteCommand}" CommandParameter="{Binding}" Width="Auto" Height="Auto" HorizontalAlignment="Right" FontFamily="Segoe Fluent Icons" Content="&#xE74D;" />
                                     <Label Grid.Row="0" Content="Name:" Margin="4" VerticalContentAlignment="Center" />
                                     <Label Grid.Row="1" Content="Login:" Margin="4" VerticalContentAlignment="Center" />
                                     <Label Grid.Row="2" Content="Password:" Margin="4" VerticalContentAlignment="Center" />

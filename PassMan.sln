@@ -9,6 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PassMan.Core", "PassMan.Cor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PassMan(Android)", "PassMan(Android)\PassMan(Android).csproj", "{7EF1C299-1126-4BBA-88BF-5E229D426826}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PassMan.Maui", "PassMan.Maui\PassMan.Maui.csproj", "{F3461A6E-0ABA-4516-9896-B3CAD7FDA80E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PassMan.API", "PassMan.API\PassMan.API.csproj", "{17787933-DCD2-4FAB-8050-1635CC0D4C42}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PassMan.Server", "PassMan.Server\PassMan.Server.csproj", "{F5C33BB0-97A0-45A6-89EF-E1E48ADFE1F7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +35,20 @@ Global
 		{7EF1C299-1126-4BBA-88BF-5E229D426826}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7EF1C299-1126-4BBA-88BF-5E229D426826}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7EF1C299-1126-4BBA-88BF-5E229D426826}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{F3461A6E-0ABA-4516-9896-B3CAD7FDA80E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3461A6E-0ABA-4516-9896-B3CAD7FDA80E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3461A6E-0ABA-4516-9896-B3CAD7FDA80E}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{F3461A6E-0ABA-4516-9896-B3CAD7FDA80E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3461A6E-0ABA-4516-9896-B3CAD7FDA80E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3461A6E-0ABA-4516-9896-B3CAD7FDA80E}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{17787933-DCD2-4FAB-8050-1635CC0D4C42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17787933-DCD2-4FAB-8050-1635CC0D4C42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17787933-DCD2-4FAB-8050-1635CC0D4C42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17787933-DCD2-4FAB-8050-1635CC0D4C42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5C33BB0-97A0-45A6-89EF-E1E48ADFE1F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5C33BB0-97A0-45A6-89EF-E1E48ADFE1F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5C33BB0-97A0-45A6-89EF-E1E48ADFE1F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5C33BB0-97A0-45A6-89EF-E1E48ADFE1F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

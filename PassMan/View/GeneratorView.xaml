@@ -1,0 +1,30 @@
+﻿<Page x:Class="PassMan.View.GeneratorView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:vm="clr-namespace:PassMan.ViewModel"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      mc:Ignorable="d"
+      Style="{StaticResource UiPage}"
+      d:DataContext="{d:DesignInstance Type=vm:MainViewModel}"
+      d:DesignHeight="450"
+      d:DesignWidth="800"
+      Title="GeneratorPage">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <ui:Card Margin="8">
+            <StackPanel Orientation="Vertical">
+                <ui:PasswordBox Password="{Binding Generator.Password, Mode=TwoWay, TargetNullValue={x:Null}}" MinWidth="200" IsReadOnly="True" />
+                <ui:NumberBox IntegersOnly="True" Value="{Binding Generator.Length, Mode=TwoWay}" />
+                <CheckBox IsChecked="{Binding Generator.Alphabetic}" Content="Alphabetic" />
+                <CheckBox IsChecked="{Binding Generator.Numeric}" Content="Numeric" />
+                <CheckBox IsChecked="{Binding Generator.Symbols}" Content="Symbols" />
+                <Button Content="Generate" Command="{Binding Generator.GeneratePasswordCommand}" />
+            </StackPanel>
+        </ui:Card>
+    </Grid>
+</Page>

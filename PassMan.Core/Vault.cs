@@ -6,16 +6,15 @@
     using System.Collections.ObjectModel;
     using System.Collections.Specialized;
     using System.Diagnostics;
-    using System.IO;
     using System.Runtime.InteropServices;
     using System.Security;
     using System.Security.Cryptography;
 
     public class Vault : IDisposable, INotifyCollectionChanged
     {
-        private List<VaultItem> _items = new();
+        private readonly List<VaultItem> _items = new();
         private readonly IStorageProvider provider;
-        internal readonly SecureString password;
+        internal SecureString password;
         private bool disposedValue;
 
         public const int Version = 1;
@@ -30,9 +29,21 @@
             this.password = password;
         }
 
-        public SecureString GetSecureString()
+        public SecureString GetPassword()
         {
             return password;
+        }
+
+        public void SetPassword(SecureString pwd)
+        {
+            var old = password;
+            password = pwd;
+            for (int i = 0; i < Files.Count; i++)
+            {
+                var file = Files[i];
+                file.Reencrypt(old, pwd);
+            }
+            Save();
         }
 
         public VaultItem this[int index] { get => ((IList<VaultItem>)_items)[index]; set => ((IList<VaultItem>)_items)[index] = value; }

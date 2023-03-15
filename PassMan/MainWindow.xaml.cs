@@ -23,7 +23,7 @@
             if (sender is not MainWindow mainWindow)
                 return;
 
-            if (mainWindow.DataContext is not ViewModel.ViewModel viewModel)
+            if (mainWindow.DataContext is not ViewModel.MainViewModel viewModel)
                 return;
             viewModel.LockVault();
             /*

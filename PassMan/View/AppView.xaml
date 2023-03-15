@@ -6,7 +6,7 @@
              xmlns:vm="clr-namespace:PassMan.ViewModel"
              xmlns:core="clr-namespace:PassMan.Core"
              xmlns:conv="clr-namespace:PassMan.Core.Convertes" xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-      d:DataContext="{d:DesignInstance Type=vm:ViewModel}"
+      d:DataContext="{d:DesignInstance Type=vm:MainViewModel}"
              mc:Ignorable="d"
              Style="{StaticResource UiPage}"
              d:DesignHeight="450" d:DesignWidth="800" Name="usercontrol">
@@ -31,9 +31,9 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <TextBox Grid.Column="0" MaxWidth="200" Text="{Binding Filter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <Button Grid.Column="1" Content="+" Command="{Binding AddAppCommand, UpdateSourceTrigger=PropertyChanged}" Width="32" Height="32" Margin="8,0,0,0" />
+            <Button Grid.Column="1" Content="+" Command="{Binding Apps.AddAppCommand, UpdateSourceTrigger=PropertyChanged}" Width="32" Height="32" Margin="8,0,0,0" />
         </Grid>
-        <ListView Grid.Row="1" ItemsSource="{Binding Vault.Apps}" SelectedValue="{Binding CurrentApp, Mode=TwoWay}" Width="200" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+        <ListView Grid.Row="1" ItemsSource="{Binding Vault.Apps}" SelectedValue="{Binding Apps.CurrentApp, Mode=TwoWay}" Width="200" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel />
@@ -49,7 +49,7 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ListView>
-        <ScrollViewer Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Visibility="{Binding CurrentAppVisibility}">
+        <ScrollViewer Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Visibility="{Binding Apps.CurrentAppVisibility}">
             <Grid Margin="16">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -68,14 +68,14 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <Label Content="Application:" Margin="8" VerticalContentAlignment="Center" />
-                        <TextBox Grid.Column="1" Text="{Binding CurrentApp.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="8" />
+                        <TextBox Grid.Column="1" Text="{Binding Apps.CurrentApp.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="8" />
                         <StackPanel Grid.Column="2" HorizontalAlignment="Right" Orientation="Horizontal">
-                            <Button Content="&#xe710;" FontFamily="Segoe Fluent Icons" Command="{Binding AddAccountToAppCommand}" Margin="8,0,8,0" />
-                            <Button Content="&#xE74D;" FontFamily="Segoe Fluent Icons" Command="{Binding RemoveAppCommand, UpdateSourceTrigger=PropertyChanged}" />
+                            <Button Content="&#xe710;" FontFamily="Segoe Fluent Icons" Command="{Binding Apps.AddAccountToAppCommand}" Margin="8,0,8,0" />
+                            <Button Content="&#xE74D;" FontFamily="Segoe Fluent Icons" Command="{Binding Apps.RemoveAppCommand, UpdateSourceTrigger=PropertyChanged}" />
                         </StackPanel>
                     </Grid>
                 </ui:Card>
-                <ItemsControl Grid.ColumnSpan="2" Grid.Row="2" ItemsSource="{Binding CurrentApp.Accounts}" ScrollViewer.CanContentScroll="True">
+                <ItemsControl Grid.ColumnSpan="2" Grid.Row="2" ItemsSource="{Binding Apps.CurrentApp.Accounts}" ScrollViewer.CanContentScroll="True">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <ui:Card Margin="16">
@@ -90,7 +90,7 @@
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
-                                    <Button Grid.Column="1" Command="{Binding ElementName=usercontrol, Path=DataContext.RemoveAccountFromAppCommand}" CommandParameter="{Binding}" HorizontalAlignment="Right" FontFamily="Segoe Fluent Icons" Content="&#xE74D;" />
+                                    <Button Grid.Column="1" Command="{Binding ElementName=usercontrol, Path=DataContext.Apps.RemoveAccountFromAppCommand}" CommandParameter="{Binding}" HorizontalAlignment="Right" FontFamily="Segoe Fluent Icons" Content="&#xE74D;" />
 
                                     <Label Grid.Row="0" Content="Name:" Margin="4" VerticalContentAlignment="Center" />
                                     <Label Grid.Row="1" Content="Login:" Margin="4" VerticalContentAlignment="Center" />

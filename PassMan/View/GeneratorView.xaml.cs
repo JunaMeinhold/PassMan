@@ -18,9 +18,9 @@
     /// <summary>
     /// Interaction logic for GeneratorPage.xaml
     /// </summary>
-    public partial class GeneratorPage : Page
+    public partial class GeneratorView : Page
     {
-        public GeneratorPage()
+        public GeneratorView()
         {
             InitializeComponent();
         }

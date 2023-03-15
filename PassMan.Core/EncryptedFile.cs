@@ -187,6 +187,73 @@
             return new EncryptedFile(name, newPath);
         }
 
+        public void Reencrypt(SecureString oldPw, SecureString newPw)
+        {
+            FileStream fsInput = File.OpenRead(System.IO.Path.Combine(Paths.RootPath, this.path));
+            FileStream fsOutput = File.Create(path);
+
+            Span<byte> inBuffer = new byte[4096 + 4 + AesGcm.NonceByteSizes.MaxSize + 4 + AesGcm.TagByteSizes.MaxSize];
+
+            oldPw.HashSecureString(out Span<byte> oldHash, out var oldHashHandle);
+            AesGcm oldAes = new(oldHash);
+
+            newPw.HashSecureString(out Span<byte> newHash, out var newHashHandle);
+            AesGcm newAes = new(newHash);
+
+            Span<byte> plainBuffer = new byte[4096];
+
+            Span<byte> outBuffer = new byte[4096 + 4 + AesGcm.NonceByteSizes.MaxSize + 4 + AesGcm.TagByteSizes.MaxSize];
+
+            while (fsInput.Position < fsInput.Length)
+            {
+                if (fsInput.Length - fsInput.Position >= inBuffer.Length)
+                {
+                    fsInput.Read(inBuffer);
+
+                    oldAes.Decrypt(inBuffer, plainBuffer);
+
+                    newAes.Encrypt(plainBuffer, outBuffer);
+
+                    fsOutput.Write(outBuffer);
+                }
+                else
+                {
+                    Span<byte> inbuffer = new byte[fsInput.Length - fsInput.Position];
+                    fsInput.Read(inbuffer);
+
+                    Span<byte> plainbuffer = new byte[Extensions.MeasureDecryptedSize(inbuffer)];
+                    oldAes.Decrypt(inbuffer, plainbuffer);
+
+                    Span<byte> outbuffer = new byte[Extensions.MeasureEncryptedSize(inbuffer.Length)];
+                    newAes.Encrypt(plainbuffer, outbuffer);
+
+                    fsOutput.Write(outbuffer);
+
+                    inbuffer.Fill(0);
+                    plainbuffer.Fill(0);
+                    outbuffer.Fill(0);
+                }
+            }
+
+            oldAes.Dispose();
+            oldHash.Fill(0);
+            oldHashHandle.Free();
+
+            newAes.Dispose();
+            newHash.Fill(0);
+            newHashHandle.Free();
+
+            inBuffer.Fill(0);
+            plainBuffer.Fill(0);
+
+            fsOutput.Flush();
+            fsOutput.Close();
+            fsOutput.Dispose();
+
+            fsInput.Close();
+            fsInput.Dispose();
+        }
+
         public override string Type => nameof(EncryptedFile);
 
         public string? Name

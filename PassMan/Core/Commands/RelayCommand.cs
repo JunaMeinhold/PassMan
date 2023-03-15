@@ -144,4 +144,77 @@
             }
         }
     }
+
+    public class RelayCommand<T1, T2, T3> : ICommand
+    {
+        private readonly Action<T1, T2, T3> _execute;
+
+        private readonly Func<T1, T2, T3, bool> _canExecute;
+
+        public RelayCommand(Action<T1, T2, T3> execute, Func<T1, T2, T3, bool> canExecute)
+        {
+            _execute = execute;
+            _canExecute = canExecute;
+        }
+
+        public RelayCommand(Action<T1, T2, T3> execute)
+        {
+            _execute = execute;
+            _canExecute = (x, y, z) => true;
+        }
+
+        public event EventHandler? CanExecuteChanged
+        {
+            add => CommandManager.RequerySuggested += value;
+            remove => CommandManager.RequerySuggested -= value;
+        }
+
+        public bool CanExecute(object? parameter)
+        {
+            if (parameter is object[] objs)
+            {
+                if (objs.Length == 3)
+                {
+                    if (objs[0] is not T1 t1)
+                    {
+                        return false;
+                    }
+                    if (objs[1] is not T2 t2)
+                    {
+                        return false;
+                    }
+                    if (objs[2] is not T3 t3)
+                    {
+                        return false;
+                    }
+                    return _canExecute(t1, t2, t3);
+                }
+            }
+
+            return false;
+        }
+
+        public void Execute(object? parameter)
+        {
+            if (parameter is object[] objs)
+            {
+                if (objs.Length == 3)
+                {
+                    if (objs[0] is not T1 t1)
+                    {
+                        return;
+                    }
+                    if (objs[1] is not T2 t2)
+                    {
+                        return;
+                    }
+                    if (objs[2] is not T3 t3)
+                    {
+                        return;
+                    }
+                    _execute(t1, t2, t3);
+                }
+            }
+        }
+    }
 }

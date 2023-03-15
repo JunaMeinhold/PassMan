@@ -377,11 +377,11 @@
 
         public RelayCommand RemoveWebsiteCommand { get; }
 
-        public RelayCommand<PasswordBox, int> GeneratePasswordCommand { get; } = new(GeneratePassword);
+        public RelayCommand<Entry, int> GeneratePasswordCommand { get; } = new(GeneratePassword);
 
         public RelayCommand<string> CopyStringCommand { get; } = new(CopyString);
 
-        public RelayCommand<PasswordBox> CopySecureStringCommand { get; } = new(CopySecureString);
+        public RelayCommand<Entry> CopySecureStringCommand { get; } = new(CopySecureString);
 
         public RelayCommand<SecureString> EnterPasswordCommand { get; }
 
@@ -532,24 +532,24 @@
             }
         }
 
-        public static void GeneratePassword(PasswordBox box, int length)
+        public static void GeneratePassword(Entry box, int length)
         {
-            box.Password = Extensions.GetRandomAlphanumericStringEx(length);
+            box.Text = Extensions.GetRandomAlphanumericStringEx(length);
         }
 
-        public static void CopyString(string str)
+        public static async void CopyString(string str)
         {
-            Clipboard.SetText(str);
+            await Clipboard.SetTextAsync(str);
             RestartCleanupTask();
         }
 
-        public static void CopySecureString(PasswordBox str)
+        public static async void CopySecureString(Entry str)
         {
-            str.SecurePassword.Expose(x => Clipboard.SetText(x));
+            await Clipboard.SetTextAsync(str.Text);
             RestartCleanupTask();
         }
 
-        private void EnterPassword(SecureString str)
+        private async void EnterPassword(SecureString str)
         {
             if (storageProvider.Exists())
             {
@@ -574,10 +574,11 @@
             {
                 Vault = new(storageProvider, str.Copy());
                 str.Clear();
-                OpenFileDialog dialog = new();
-                if (dialog.ShowDialog() == true)
+
+                var result = await FilePicker.PickAsync();
+                if (result != null)
                 {
-                    KasperskyTextfileImporter.Import(dialog.FileName, Vault);
+                    KasperskyTextfileImporter.Import(result.FullPath, Vault);
                 }
                 Vault.Save();
                 PasswordDialogVisibility = Visibility.Collapsed;
