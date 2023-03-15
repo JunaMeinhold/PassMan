@@ -9,7 +9,7 @@
              xmlns:con="clr-namespace:PassMan.Core.Convertes"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d"
-             d:DesignHeight="450" d:DesignWidth="800" d:DataContext="{d:DesignInstance Type=vm:MainViewModel}">
+             d:DesignHeight="450" d:DesignWidth="800" d:DataContext="{d:DesignInstance Type=vm:MainViewModel}" IsEnabled="{Binding PasswordDialogEnabled}">
     <UserControl.Resources>
         <ResourceDictionary>
             <con:MultiBindingConverter x:Key="converter" />
@@ -31,7 +31,7 @@
         <Label Grid.Column="1" Grid.Row="1" Content="Enter Master-Password" Margin="8" />
         <ui:PasswordBox Name="passwordBox" Grid.Column="1" Grid.Row="2" Margin="8">
             <i:Interaction.Triggers>
-                <i:KeyTrigger Key="Return">
+                <i:KeyTrigger Key="Return" ActiveOnFocus="True">
                     <i:InvokeCommandAction Command="{Binding Startup.EnterPasswordCommand}" CommandParameter="{Binding ElementName=passwordBox}" />
                 </i:KeyTrigger>
             </i:Interaction.Triggers>

@@ -1,4 +1,4 @@
-﻿namespace PassMan.View
+﻿namespace PassMan.View.Pages
 {
     using System;
     using System.Collections.Generic;
@@ -16,11 +16,11 @@
     using System.Windows.Shapes;
 
     /// <summary>
-    /// Interaction logic for WebAccountView.xaml
+    /// Interaction logic for FileView.xaml
     /// </summary>
-    public partial class WebsiteView : Page
+    public partial class FileView : Page
     {
-        public WebsiteView()
+        public FileView()
         {
             InitializeComponent();
         }

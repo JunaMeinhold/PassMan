@@ -1,4 +1,4 @@
-﻿namespace PassMan
+﻿namespace PassMan.View
 {
     using System.Windows;
     using System.Windows.Navigation;

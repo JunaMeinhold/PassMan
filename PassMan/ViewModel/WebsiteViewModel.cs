@@ -21,6 +21,13 @@
             this.mainViewModel = mainViewModel;
         }
 
+        public void Reset()
+        {
+            CurrentWebsiteVisibility = Visibility.Collapsed;
+            CurrentWebsite = null;
+            websitesFilterView = null;
+        }
+
         public RelayCommand AddAccountToWebsiteCommand { get; }
 
         public RelayCommand<Account> RemoveAccountFromWebsiteCommand { get; }

@@ -1,4 +1,4 @@
-﻿<Page x:Class="PassMan.View.WebsiteView"
+﻿<Page x:Class="PassMan.View.Pages.WebsiteView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -112,7 +112,7 @@
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
-                                        <TextBox Name="nameTextBox" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Margin="4" Width="200" />
+                                        <TextBox Name="nameTextBox" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="4" Width="200" AcceptsReturn="False" />
                                         <Button Grid.Column="1" Content="&#xE8C8;" FontFamily="Segoe Fluent Icons" Command="{Binding ElementName=usercontrol, Path=DataContext.CopyStringCommand}" CommandParameter="{Binding ElementName=nameTextBox, Path=Text}" />
                                     </Grid>
                                     <Grid Grid.Row="1" Grid.Column="1">
@@ -120,7 +120,7 @@
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
-                                        <TextBox Name="loginTextBox" Text="{Binding Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="4" Width="200" />
+                                        <wpfui:TextBox Name="loginTextBox" Text="{Binding Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="4" Width="200" AcceptsReturn="False" />
                                         <Button Grid.Column="1" Content="&#xE8C8;" FontFamily="Segoe Fluent Icons" Command="{Binding ElementName=usercontrol, Path=DataContext.CopyStringCommand}" CommandParameter="{Binding ElementName=loginTextBox, Path=Text}" />
                                     </Grid>
                                     <Grid Grid.Row="2" Grid.Column="1">
@@ -136,7 +136,7 @@
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
-                                        <TextBox Name="commentTextBox" Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="4" Width="200" />
+                                        <TextBox Name="commentTextBox" Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="4" Width="200" AcceptsReturn="False" />
                                         <Button Grid.Column="1" Content="&#xE8C8;" FontFamily="Segoe Fluent Icons" Command="{Binding ElementName=usercontrol, Path=DataContext.CopyStringCommand}" CommandParameter="{Binding ElementName=commentTextBox, Path=Text}" />
                                     </Grid>
                                 </Grid>

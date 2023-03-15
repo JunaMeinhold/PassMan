@@ -3,11 +3,10 @@
     using PassMan.Core;
     using PassMan.Core.Commands;
     using PassMan.Model;
+    using PassMan.View;
     using System;
     using System.Diagnostics;
     using System.IO;
-    using System.Security;
-    using System.Security.Cryptography;
     using System.Threading;
     using System.Threading.Tasks;
     using System.Windows;
@@ -72,6 +71,7 @@
         private Visibility menuVisibility = Visibility.Collapsed;
         private Visibility passwordVisibility = Visibility.Visible;
         private Visibility lockVaultButtonVisibility = Visibility.Collapsed;
+        private bool passwordDialogEnabled = true;
         private Vault? vault;
 
         private string? filter;
@@ -145,28 +145,29 @@
         public Vault? Vault
         {
             get => vault;
-            set
+        }
+
+        public void SetVault(Vault? value)
+        {
+            vault = value;
+            NotifyPropertyChanged();
+            if (vault != null)
             {
-                vault = value;
-                NotifyPropertyChanged();
-                if (vault != null)
-                {
-                    Websites.websitesFilterView = CollectionViewSource.GetDefaultView(vault.Websites);
-                    Websites.websitesFilterView.Filter = o => string.IsNullOrEmpty(filter) || (((Website)o).Name?.Contains(filter, StringComparison.CurrentCultureIgnoreCase) ?? false);
-                    Apps.appsFilterView = CollectionViewSource.GetDefaultView(vault.Apps);
-                    Apps.appsFilterView.Filter = o => string.IsNullOrEmpty(filter) || (((App)o).Name?.Contains(filter, StringComparison.CurrentCultureIgnoreCase) ?? false);
-                    Notes.notesFilterView = CollectionViewSource.GetDefaultView(vault.Notes);
-                    Notes.notesFilterView.Filter = o => string.IsNullOrEmpty(filter) || (((Note)o).Name?.Contains(filter, StringComparison.CurrentCultureIgnoreCase) ?? false);
-                    Files.filesFilterView = CollectionViewSource.GetDefaultView(vault.Files);
-                    Files.filesFilterView.Filter = o => string.IsNullOrEmpty(filter) || (((EncryptedFile)o).Name?.Contains(filter, StringComparison.CurrentCultureIgnoreCase) ?? false);
-                }
-                else
-                {
-                    Websites.websitesFilterView = null;
-                    Apps.appsFilterView = null;
-                    Notes.notesFilterView = null;
-                    Files.filesFilterView = null;
-                }
+                Websites.websitesFilterView = CollectionViewSource.GetDefaultView(vault.Websites);
+                Websites.websitesFilterView.Filter = o => string.IsNullOrEmpty(filter) || (((Website)o).Name?.Contains(filter, StringComparison.CurrentCultureIgnoreCase) ?? false);
+                Apps.appsFilterView = CollectionViewSource.GetDefaultView(vault.Apps);
+                Apps.appsFilterView.Filter = o => string.IsNullOrEmpty(filter) || (((App)o).Name?.Contains(filter, StringComparison.CurrentCultureIgnoreCase) ?? false);
+                Notes.notesFilterView = CollectionViewSource.GetDefaultView(vault.Notes);
+                Notes.notesFilterView.Filter = o => string.IsNullOrEmpty(filter) || (((Note)o).Name?.Contains(filter, StringComparison.CurrentCultureIgnoreCase) ?? false);
+                Files.filesFilterView = CollectionViewSource.GetDefaultView(vault.Files);
+                Files.filesFilterView.Filter = o => string.IsNullOrEmpty(filter) || (((EncryptedFile)o).Name?.Contains(filter, StringComparison.CurrentCultureIgnoreCase) ?? false);
+            }
+            else
+            {
+                Websites.websitesFilterView = null;
+                Apps.appsFilterView = null;
+                Notes.notesFilterView = null;
+                Files.filesFilterView = null;
             }
         }
 
@@ -180,6 +181,12 @@
         {
             get => passwordVisibility;
             set => SetAndNotifyPropertyChanged(ref passwordVisibility, value);
+        }
+
+        public bool PasswordDialogEnabled
+        {
+            get => passwordDialogEnabled;
+            set => SetAndNotifyPropertyChanged(ref passwordDialogEnabled, value);
         }
 
         public Visibility LockVaultButtonVisibility
@@ -222,8 +229,6 @@
         public RelayCommand CloseCommand { get; }
 
         public RelayCommand OpenCommand { get; }
-
-        public RelayCommand<PasswordBox, int> GeneratePasswordCommand { get; } = new(GeneratePassword);
 
         public RelayCommand<string> CopyStringCommand { get; } = new(CopyString);
 
@@ -280,11 +285,6 @@
             IsHidden = false;
         }
 
-        public static void GeneratePassword(PasswordBox box, int length)
-        {
-            box.Password = Extensions.GetRandomAlphanumericStringEx(length);
-        }
-
         public static void CopyString(string str)
         {
             Clipboard.SetText(str);
@@ -301,9 +301,14 @@
         {
             Vault? tmp = vault;
             tmp?.Save();
-            Vault = null;
+            SetVault(null);
             Filter = null;
+            Websites.Reset();
+            Apps.Reset();
+            Notes.Reset();
+            Files.Reset();
             PasswordDialogVisibility = Visibility.Visible;
+            PasswordDialogEnabled = true;
             MenuVisibility = Visibility.Collapsed;
             LockVaultButtonVisibility = Visibility.Collapsed;
             tmp?.Dispose();

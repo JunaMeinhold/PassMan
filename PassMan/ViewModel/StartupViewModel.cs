@@ -35,16 +35,17 @@
             {
                 try
                 {
-                    mainViewModel.Vault = new(mainViewModel.StorageProvider, str.Copy());
-
+                    mainViewModel.SetVault(new(mainViewModel.StorageProvider, str.Copy()));
                     mainViewModel.Vault.Load();
                     str.Clear();
+                    mainViewModel.PasswordDialogEnabled = false;
                     mainViewModel.PasswordDialogVisibility = Visibility.Collapsed;
                     mainViewModel.MenuVisibility = Visibility.Visible;
                     mainViewModel.LockVaultButtonVisibility = Visibility.Visible;
                 }
                 catch (CryptographicException)
                 {
+                    mainViewModel.PasswordDialogEnabled = true;
                     mainViewModel.PasswordDialogVisibility = Visibility.Visible;
                     mainViewModel.MenuVisibility = Visibility.Collapsed;
                     mainViewModel.LockVaultButtonVisibility = Visibility.Collapsed;
@@ -52,9 +53,10 @@
             }
             else
             {
-                mainViewModel.Vault = new(mainViewModel.StorageProvider, str.Copy());
+                mainViewModel.SetVault(new(mainViewModel.StorageProvider, str.Copy()));
                 str.Clear();
                 mainViewModel.Vault.Save();
+                mainViewModel.PasswordDialogEnabled = false;
                 mainViewModel.PasswordDialogVisibility = Visibility.Collapsed;
                 mainViewModel.MenuVisibility = Visibility.Visible;
                 mainViewModel.LockVaultButtonVisibility = Visibility.Visible;

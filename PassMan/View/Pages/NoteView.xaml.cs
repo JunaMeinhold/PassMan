@@ -1,4 +1,4 @@
-﻿namespace PassMan.View
+﻿namespace PassMan.View.Pages
 {
     using System;
     using System.Collections.Generic;
@@ -16,11 +16,11 @@
     using System.Windows.Shapes;
 
     /// <summary>
-    /// Interaction logic for AppAccountView.xaml
+    /// Interaction logic for NoteView.xaml
     /// </summary>
-    public partial class AppView : Page
+    public partial class NoteView : Page
     {
-        public AppView()
+        public NoteView()
         {
             InitializeComponent();
         }

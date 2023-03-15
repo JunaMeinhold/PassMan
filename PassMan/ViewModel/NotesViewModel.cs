@@ -21,6 +21,13 @@
             AddNoteCommand = new(AddNote, () => mainViewModel.Vault is not null);
         }
 
+        public void Reset()
+        {
+            CurrentNoteVisibility = Visibility.Collapsed;
+            CurrentNote = null;
+            notesFilterView = null;
+        }
+
         public Note? CurrentNote
         {
             get

@@ -5,6 +5,7 @@
     using PassMan.Core.Commands;
     using System.ComponentModel;
     using System.Windows;
+    using Windows.ApplicationModel.Store;
 
     public class FilesViewModel : ViewModelBase
     {
@@ -21,6 +22,13 @@
             ExportFileCommand = new(ExportFile, () => currentFile is not null);
             RemoveFileCommand = new(RemoveFile, () => currentFile is not null);
             AddFileCommand = new(AddFile, () => mainViewModel.Vault is not null);
+        }
+
+        public void Reset()
+        {
+            CurrentFileVisibility = Visibility.Collapsed;
+            CurrentFile = null;
+            filesFilterView = null;
         }
 
         public EncryptedFile? CurrentFile

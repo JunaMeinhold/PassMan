@@ -1,4 +1,4 @@
-﻿namespace PassMan.View
+﻿namespace PassMan.View.Pages
 {
     using System;
     using System.Collections.Generic;
@@ -16,11 +16,11 @@
     using System.Windows.Shapes;
 
     /// <summary>
-    /// Interaction logic for GeneratorPage.xaml
+    /// Interaction logic for WebAccountView.xaml
     /// </summary>
-    public partial class GeneratorView : Page
+    public partial class WebsiteView : Page
     {
-        public GeneratorView()
+        public WebsiteView()
         {
             InitializeComponent();
         }

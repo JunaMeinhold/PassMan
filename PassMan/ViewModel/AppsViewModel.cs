@@ -21,6 +21,13 @@
             AddAccountToAppCommand = new(AddAccountToApp, () => currentApp is not null);
         }
 
+        public void Reset()
+        {
+            CurrentAppVisibility = Visibility.Collapsed;
+            CurrentApp = null;
+            appsFilterView = null;
+        }
+
         public App? CurrentApp
         {
             get
